@@ -38,9 +38,9 @@ internal class PersonServiceTest {
     @Test
     fun getByIdException() {
         Mockito.`when`(personRepository.findById(2))
-            .thenThrow(RuntimeException("GET: Person with id = 2 not found"))
+            .thenThrow(IllegalArgumentException("GET: Person with id = 2 not found"))
 
-        val thrown = Assertions.assertThrows(RuntimeException::class.java) {
+        val thrown = Assertions.assertThrows(IllegalArgumentException::class.java) {
             personService.getById(2)
         }
 
@@ -50,9 +50,9 @@ internal class PersonServiceTest {
     @Test
     fun updateException() {
         Mockito.`when`(personRepository.update(Person(2, "Fedya", "Ivanov")))
-            .thenThrow(RuntimeException("UPDATE: Person with id = 2 not found"))
+            .thenThrow(IllegalArgumentException("UPDATE: Person with id = 2 not found"))
 
-        val thrown = Assertions.assertThrows(RuntimeException::class.java) {
+        val thrown = Assertions.assertThrows(IllegalArgumentException::class.java) {
             personService.update(2, "Fedya", "Ivanov")
         }
 

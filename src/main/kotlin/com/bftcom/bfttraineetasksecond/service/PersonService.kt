@@ -19,7 +19,7 @@ class PersonService(
 
     fun getById(id: Int): Person? {
         return personRepository.findById(id)
-            ?: throw RuntimeException("GET: Person with id = $id not found")
+            ?: throw IllegalArgumentException("GET: Person with id = $id not found")
     }
 
     fun getByName(name: String): List<Person> {
@@ -32,7 +32,7 @@ class PersonService(
 
     fun update(id: Int, name: String?, lastName: String?) {
         val person: Person = personRepository.findById(id)
-            ?: throw RuntimeException("UPDATE: Person with id = $id not found")
+            ?: throw IllegalArgumentException("UPDATE: Person with id = $id not found")
         personRepository.update(Person(id, name?: person.name, lastName?: person.lastName))
 
     }
