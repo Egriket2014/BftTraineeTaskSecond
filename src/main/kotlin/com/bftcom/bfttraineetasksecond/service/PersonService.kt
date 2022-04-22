@@ -18,13 +18,8 @@ class PersonService(
     }
 
     fun getById(id: Int): Person? {
-        try {
-            return personRepository.findById(id)?: throw Exception()
-
-        }catch (e: Exception) {
-            println("GET: Person with id = $id not found")
-            return null
-        }
+        return personRepository.findById(id)
+            ?: throw RuntimeException("GET: Person with id = $id not found")
     }
 
     fun getByName(name: String): List<Person> {
@@ -36,13 +31,10 @@ class PersonService(
     }
 
     fun update(id: Int, name: String?, lastName: String?) {
-        try {
-            val person: Person = personRepository.findById(id)?: throw Exception()
-            personRepository.update(Person(id, name?: person.name, lastName?: person.lastName))
+        val person: Person = personRepository.findById(id)
+            ?: throw RuntimeException("UPDATE: Person with id = $id not found")
+        personRepository.update(Person(id, name?: person.name, lastName?: person.lastName))
 
-        }catch (e: Exception) {
-            println("UPDATE: Person with id = $id not found")
-        }
     }
 
     fun deleteById(id: Int) {

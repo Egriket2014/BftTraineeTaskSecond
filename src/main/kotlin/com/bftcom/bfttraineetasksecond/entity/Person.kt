@@ -1,6 +1,6 @@
 package com.bftcom.bfttraineetasksecond.entity
 
-class Person (
+data class Person (
 
     val id : Int,
     var name : String,

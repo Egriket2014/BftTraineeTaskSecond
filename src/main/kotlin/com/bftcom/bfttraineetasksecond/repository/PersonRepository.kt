@@ -3,6 +3,7 @@ package com.bftcom.bfttraineetasksecond.repository
 import com.bftcom.bfttraineetasksecond.entity.Person
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert
 import org.springframework.stereotype.Repository
 import java.sql.ResultSet
 
@@ -37,7 +38,14 @@ class PersonRepository (
     }
 
     fun save(name: String, lastName: String): Int {
-        return jdbcTemplate.update("insert into person (name, lastName) values(?, ?)", name, lastName)
+        val simpleJdbcInsert = SimpleJdbcInsert(jdbcTemplate)
+            .withTableName("person")
+            .usingGeneratedKeyColumns("id")
+
+        val parameters: MutableMap<String, String> = HashMap()
+        parameters.put("name", name)
+        parameters.put("lastName", lastName)
+        return simpleJdbcInsert.executeAndReturnKey(parameters) as Int
     }
 
     fun deleteById(id: Int) {
