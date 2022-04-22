@@ -22,7 +22,7 @@ class PersonService(
             return personRepository.findById(id)?: throw Exception()
 
         }catch (e: Exception) {
-            println("Person with id = $id not found")
+            println("GET: Person with id = $id not found")
             return null
         }
     }
@@ -35,8 +35,14 @@ class PersonService(
         return personRepository.findByLastName(lastName)
     }
 
-    fun update(id: Int, name: String, lastName: String) {
-        personRepository.update(Person(id, name, lastName))
+    fun update(id: Int, name: String?, lastName: String?) {
+        try {
+            val person: Person = personRepository.findById(id)?: throw Exception()
+            personRepository.update(Person(id, name?: person.name, lastName?: person.lastName))
+
+        }catch (e: Exception) {
+            println("UPDATE: Person with id = $id not found")
+        }
     }
 
     fun deleteById(id: Int) {
