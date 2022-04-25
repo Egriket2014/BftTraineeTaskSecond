@@ -33,6 +33,10 @@ class PersonRepository (
         return jdbcTemplate.query("select * from Person where lastName=?", rowMapper, lastName)
     }
 
+    fun findByNameAndLastName(name: String, lastName: String): List<Person> {
+        return jdbcTemplate.query("select * from Person where name=? and lastName=?", rowMapper, name, lastName)
+    }
+
     fun update(entity: Person) {
         jdbcTemplate.update("update person set name=?, lastName=? where id=?", entity.name, entity.lastName, entity.id)
     }
