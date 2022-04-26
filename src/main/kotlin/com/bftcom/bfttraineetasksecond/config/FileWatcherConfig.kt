@@ -1,5 +1,6 @@
 package com.bftcom.bfttraineetasksecond.config
 
+import com.bftcom.bfttraineetasksecond.listener.JsonListener
 import com.bftcom.bfttraineetasksecond.service.PersonService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.devtools.filewatch.FileSystemWatcher

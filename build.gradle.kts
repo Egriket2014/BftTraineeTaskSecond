@@ -19,20 +19,25 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
     testImplementation("org.mockito:mockito-core:4.4.0")
+
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.2.2")
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.2")
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.2")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.2")
+
+    implementation("org.springframework.boot:spring-boot-starter-activemq")
 }
 
 tasks.withType<KotlinCompile> {

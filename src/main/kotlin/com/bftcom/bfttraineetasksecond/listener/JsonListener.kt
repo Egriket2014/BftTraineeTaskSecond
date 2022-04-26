@@ -1,4 +1,4 @@
-package com.bftcom.bfttraineetasksecond.config
+package com.bftcom.bfttraineetasksecond.listener
 
 import com.bftcom.bfttraineetasksecond.dto.PersonDto
 import com.bftcom.bfttraineetasksecond.service.PersonService
