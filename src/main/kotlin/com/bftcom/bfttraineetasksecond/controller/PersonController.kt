@@ -3,7 +3,6 @@ package com.bftcom.bfttraineetasksecond.controller
 import com.bftcom.bfttraineetasksecond.entity.Person
 import com.bftcom.bfttraineetasksecond.service.PersonService
 import org.springframework.web.bind.annotation.*
-import javax.annotation.PostConstruct
 
 @RestController
 @RequestMapping("/person")
@@ -11,11 +10,6 @@ class PersonController(
 
     private val personService: PersonService
 ) {
-
-    @PostConstruct
-    fun start() {
-        personService.startWatch()
-    }
 
     @PostMapping("/add")
     fun add(@RequestParam name: String,

@@ -3,17 +3,8 @@ package com.bftcom.bfttraineetasksecond.service
 import com.bftcom.bfttraineetasksecond.dto.PersonDto
 import com.bftcom.bfttraineetasksecond.entity.Person
 import com.bftcom.bfttraineetasksecond.repository.PersonRepository
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.io.File
-import java.nio.file.FileSystems
-import java.nio.file.StandardWatchEventKinds
 
 @Service
 class PersonService(
@@ -21,10 +12,6 @@ class PersonService(
     private val personRepository: PersonRepository
 
 ) {
-
-    @Value("\${listeningDir.path}")
-    private lateinit var listenerDirectory: String
-    private val mapper: ObjectMapper = jacksonObjectMapper().registerKotlinModule()
 
     @Transactional
     fun addPerson(name: String, lastName: String): Int {
@@ -78,30 +65,5 @@ class PersonService(
     @Transactional
     fun deleteAll() {
         personRepository.deleteAll()
-    }
-
-    @Async
-    fun startWatch() {
-        val watchService = FileSystems.getDefault().newWatchService()
-        val pathToWatch = File(listenerDirectory).toPath()
-
-        pathToWatch.register(watchService, StandardWatchEventKinds.ENTRY_CREATE)
-
-        while (true) {
-            val watchKey = watchService.take()
-            for (event in watchKey.pollEvents()) {
-                val file = File(listenerDirectory + "\\${event.context()}")
-                val listPersons = parseJson(file)
-                //println(listPersons)
-                addAll(listPersons)
-                file.delete()
-            }
-            watchKey.reset()
-        }
-    }
-
-    private fun parseJson(file: File): List<PersonDto> {
-        val jsonString: String = file.readText(Charsets.UTF_8)
-        return mapper.readValue(jsonString)
     }
 }
